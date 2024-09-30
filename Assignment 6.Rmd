@@ -1,0 +1,50 @@
+```{r}
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+```
+make data longer
+```{r}
+
+jobs <- occupation.1870 %>%
+  pivot_longer(
+    cols = `Agriculture.Male`:`School.Female`, 
+    names_to = "occupation_gender",
+    values_to = "people in industry",
+    
+  )
+```
+```{r}
+jobs2 <- jobs %>%
+  separate(occupation_gender, into = c("occupation", "gender"), sep = "\\.")
+
+```
+```{r}
+colnames(jobs2)
+```
+seperate male and female into separate columns 
+```{r}
+jobs_wide <- jobs2 %>%
+  pivot_wider(names_from = gender, values_from = "people in industry")
+```
+
+scatterplots
+```{r}
+ggplot(jobs_wide, aes(x = Male, y = Female)) +
+  geom_point() +
+  facet_wrap(~ occupation) +
+  labs(
+    title = "Male and Female by Occupation",
+    x = "Number of Males in Industry",
+    y = "Number of Females in Industry"
+  ) +
+  scale_x_continuous(labels = scales::comma) +  
+  scale_y_continuous(labels = scales::comma) +  
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)  
+  )
+
+```
+
