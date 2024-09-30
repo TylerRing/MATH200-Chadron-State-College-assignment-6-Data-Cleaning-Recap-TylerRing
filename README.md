@@ -1,1 +1,1 @@
-# MATH200-Chadron-State-College-assignment-6-Data-Cleaning-Recap-TylerRing
+I will be taking the occupation-1870 table and making it long format. I will then seperate the occupations by gender. Finnaly I will graph the data
